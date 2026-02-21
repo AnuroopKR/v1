@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'i.pravatar.cc' },
     ],
   },
+  serverExternalPackages: ["mongoose", "mongodb"],
 };
 
 export default nextConfig;
