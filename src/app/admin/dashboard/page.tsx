@@ -8,6 +8,7 @@ import {
     TrendingUp,
     ArrowUpRight
 } from "lucide-react";
+import Link from "next/link";
 import dbConnect from "@/lib/db";
 import { Event, Achievement, TeamMember } from "@/models";
 

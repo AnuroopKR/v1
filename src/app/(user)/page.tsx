@@ -23,7 +23,7 @@ export default async function LandingPage() {
   const dbTeamMembers = await TeamMember.find({}).sort({ createdAt: 1 });
 
   // Serialization helper to convert MongoDB objects to plain objects for client components
-  const serialize = (data: any) => data ? JSON.parse(JSON.stringify(data)) : [];
+  const serialize = (data: unknown) => data ? JSON.parse(JSON.stringify(data)) : [];
 
   const events = serialize(dbEvents);
   const pastEvents = serialize(dbPastEvents);

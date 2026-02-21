@@ -1,24 +1,30 @@
 "use server";
 
 import dbConnect from "./db";
-import { Event, Achievement, TeamMember, Gallery } from "../models";
+import { Event, Achievement, TeamMember } from "../models";
 import { revalidatePath } from "next/cache";
 
 // --- EVENT ACTIONS ---
 export async function createEvent(formData: FormData) {
-    await dbConnect();
-    const rawData = {
-        title: formData.get("title") as string,
-        date: formData.get("date") as string,
-        time: formData.get("time") as string,
-        venue: formData.get("venue") as string,
-        description: formData.get("description") as string,
-        image: formData.get("image") as string,
-        isPast: formData.get("isPast") === "true",
-    };
-    await Event.create(rawData);
-    revalidatePath("/admin/events");
-    revalidatePath("/");
+    try {
+        await dbConnect();
+        const rawData = {
+            title: formData.get("title") as string,
+            date: formData.get("date") as string,
+            time: formData.get("time") as string,
+            venue: formData.get("venue") as string,
+            description: formData.get("description") as string,
+            image: formData.get("image") as string,
+            isPast: formData.get("isPast") === "true",
+        };
+        await Event.create(rawData);
+        revalidatePath("/admin/events");
+        revalidatePath("/");
+        return { success: true };
+    } catch (error) {
+        console.error("Failed to create event:", error);
+        return { success: false, error: "Failed to create event" };
+    }
 }
 
 export async function deleteEvent(id: string) {

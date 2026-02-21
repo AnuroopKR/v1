@@ -4,11 +4,31 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import ContactForm from "./ContactForm";
 
+interface EventItem {
+    title: string;
+    date: string;
+    time?: string;
+    description: string;
+    image: string;
+}
+
+interface AchievementItem {
+    title: string;
+    year: string;
+    desc: string;
+}
+
+interface TeamMemberItem {
+    name: string;
+    role: string;
+    image: string;
+}
+
 interface Props {
-    events: any[];
-    pastEvents: any[];
-    achievementData: any[];
-    teamMembers: any[];
+    events: EventItem[];
+    pastEvents: EventItem[];
+    achievementData: AchievementItem[];
+    teamMembers: TeamMemberItem[];
 }
 
 export default function LandingPageContent({
@@ -18,22 +38,22 @@ export default function LandingPageContent({
     teamMembers: propTeamMembers
 }: Props) {
     // Fallbacks if data is empty (e.g. fresh DB or disconnected)
-    const events = propEvents.length > 0 ? propEvents : [
+    const events: EventItem[] = propEvents.length > 0 ? propEvents : [
         { title: "Grand Football Tournament", date: "24-05-2025", time: "04:00 PM", description: "Battle of the legends in Kottoor backwaters.", image: "/hero.jpeg" },
         { title: "Cultural Heritage Fest", date: "10-06-2025", time: "06:30 PM", description: "Celebrating the vibrant arts of Kerala.", image: "/hero.jpeg" },
     ];
 
-    const pastEvents = propPastEvents.length > 0 ? propPastEvents : [
+    const pastEvents: EventItem[] = propPastEvents.length > 0 ? propPastEvents : [
         { title: "SSLC/+2 അനുമോദനം", date: "08-06-2025", description: "Honoring our bright students.", image: "https://images.unsplash.com/photo-1523050853064-db084479f224?auto=format&fit=crop&q=80&w=800" },
         { title: "Independence Day Fest", date: "15-08-2024", description: "Celebrating our freedom.", image: "https://images.unsplash.com/photo-1532375810709-75b1da00537c?auto=format&fit=crop&q=80&w=800" },
     ];
 
-    const achievementData = propAchievements.length > 0 ? propAchievements : [
+    const achievementData: AchievementItem[] = propAchievements.length > 0 ? propAchievements : [
         { title: "Best Rural Club 2024", year: "2024", desc: "Awarded by Sreekandapuram Municipality." },
         { title: "Football Cup Champions", year: "2023", desc: "Winners of the District Level Tournament." },
     ];
 
-    const teamMembers = propTeamMembers.length > 0 ? propTeamMembers : [
+    const teamMembers: TeamMemberItem[] = propTeamMembers.length > 0 ? propTeamMembers : [
         { name: "Prashanth K", role: "President", image: "https://i.pravatar.cc/150?u=1" },
         { name: "Suresh Babu", role: "Secretary", image: "https://i.pravatar.cc/150?u=2" },
         { name: "Rajesh MK", role: "Treasurer", image: "https://i.pravatar.cc/150?u=3" },

@@ -14,8 +14,13 @@ export default function NewEventPage() {
         e.preventDefault();
         setIsLoading(true);
         const formData = new FormData(e.currentTarget);
-        await createEvent(formData);
-        router.push("/admin/events");
+        const result = await createEvent(formData);
+
+        if (result?.success) {
+            router.push("/admin/events");
+        } else {
+            alert(result?.error || "An unexpected error occurred");
+        }
         setIsLoading(false);
     };
 
@@ -50,11 +55,11 @@ export default function NewEventPage() {
                 <div className="grid md:grid-cols-3 gap-10">
                     <div className="space-y-4">
                         <label className="text-xs font-black uppercase text-slate-400 tracking-widest ml-2">Date</label>
-                        <input name="date" required className="w-full p-6 bg-slate-50 rounded-3xl outline-none focus:ring-4 ring-accent/30 transition-all font-black text-primary" placeholder="01-01-2024" />
+                        <input name="date" type="date" required className="w-full p-6 bg-slate-50 rounded-3xl outline-none focus:ring-4 ring-accent/30 transition-all font-black text-primary" />
                     </div>
                     <div className="space-y-4">
                         <label className="text-xs font-black uppercase text-slate-400 tracking-widest ml-2">Time</label>
-                        <input name="time" required className="w-full p-6 bg-slate-50 rounded-3xl outline-none focus:ring-4 ring-accent/30 transition-all font-black text-primary" placeholder="10:00 AM" />
+                        <input name="time" type="time" required className="w-full p-6 bg-slate-50 rounded-3xl outline-none focus:ring-4 ring-accent/30 transition-all font-black text-primary" />
                     </div>
                     <div className="space-y-4">
                         <label className="text-xs font-black uppercase text-slate-400 tracking-widest ml-2">Status</label>
