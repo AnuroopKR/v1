@@ -1,5 +1,5 @@
 import dbConnect from "@/lib/db";
-import { Event, Achievement, TeamMember } from "@/models";
+import { Event, Achievement, TeamMember, Gallery } from "@/models";
 import LandingPageContent from "@/components/LandingPageContent";
 
 export default async function LandingPage() {
@@ -13,6 +13,7 @@ export default async function LandingPage() {
         pastEvents={[]}
         achievementData={[]}
         teamMembers={[]}
+        galleryItems={[]}
       />
     );
   }
@@ -21,6 +22,7 @@ export default async function LandingPage() {
   const dbPastEvents = await Event.find({ isPast: true }).sort({ date: -1 }).limit(10);
   const dbAchievements = await Achievement.find({}).sort({ year: -1 });
   const dbTeamMembers = await TeamMember.find({}).sort({ createdAt: 1 });
+  const dbGallery = await Gallery.find({}).sort({ createdAt: -1 }).limit(12);
 
   // Serialization helper to convert MongoDB objects to plain objects for client components
   const serialize = (data: unknown) => data ? JSON.parse(JSON.stringify(data)) : [];
@@ -29,6 +31,7 @@ export default async function LandingPage() {
   const pastEvents = serialize(dbPastEvents);
   const achievementData = serialize(dbAchievements);
   const teamMembers = serialize(dbTeamMembers);
+  const galleryItems = serialize(dbGallery);
 
   return (
     <LandingPageContent
@@ -36,6 +39,7 @@ export default async function LandingPage() {
       pastEvents={pastEvents}
       achievementData={achievementData}
       teamMembers={teamMembers}
+      galleryItems={galleryItems}
     />
   );
 }

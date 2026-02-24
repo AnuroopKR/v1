@@ -1,7 +1,7 @@
 "use server";
 
 import dbConnect from "./db";
-import { Event, Achievement, TeamMember } from "../models";
+import { Event, Achievement, TeamMember, Gallery } from "../models";
 import { revalidatePath } from "next/cache";
 
 // --- EVENT ACTIONS ---
@@ -69,5 +69,29 @@ export async function deleteTeamMember(id: string) {
     await dbConnect();
     await TeamMember.findByIdAndDelete(id);
     revalidatePath("/admin/team");
+    revalidatePath("/");
+}
+
+// --- GALLERY ACTIONS ---
+export async function createGalleryItem(formData: FormData) {
+    try {
+        await dbConnect();
+        await Gallery.create({
+            imageUrl: formData.get("imageUrl") as string,
+            caption: formData.get("caption") as string,
+        });
+        revalidatePath("/admin/gallery");
+        revalidatePath("/");
+        return { success: true };
+    } catch (error) {
+        console.error("Failed to create gallery item:", error);
+        return { success: false, error: "Failed to add image to gallery" };
+    }
+}
+
+export async function deleteGalleryItem(id: string) {
+    await dbConnect();
+    await Gallery.findByIdAndDelete(id);
+    revalidatePath("/admin/gallery");
     revalidatePath("/");
 }

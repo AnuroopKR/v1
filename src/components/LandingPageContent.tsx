@@ -24,18 +24,25 @@ interface TeamMemberItem {
     image: string;
 }
 
+interface GalleryItem {
+    imageUrl: string;
+    caption?: string;
+}
+
 interface Props {
     events: EventItem[];
     pastEvents: EventItem[];
     achievementData: AchievementItem[];
     teamMembers: TeamMemberItem[];
+    galleryItems: GalleryItem[];
 }
 
 export default function LandingPageContent({
     events: propEvents,
     pastEvents: propPastEvents,
     achievementData: propAchievements,
-    teamMembers: propTeamMembers
+    teamMembers: propTeamMembers,
+    galleryItems: propGalleryItems
 }: Props) {
     // Fallbacks if data is empty (e.g. fresh DB or disconnected)
     const events: EventItem[] = propEvents.length > 0 ? propEvents : [
@@ -59,12 +66,14 @@ export default function LandingPageContent({
         { name: "Rajesh MK", role: "Treasurer", image: "https://i.pravatar.cc/150?u=3" },
     ];
 
+    const galleryItems: GalleryItem[] = propGalleryItems
+
     return (
         <div className="pt-16 selection:bg-accent selection:text-primary overflow-x-hidden">
             {/* Hero Section */}
             <section className="relative h-[95vh] flex items-center justify-center overflow-hidden">
                 <Image
-                    src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&q=80&w=2000"
+                    src="/hero1.png"
                     alt="Kerala Heritage Background"
                     fill
                     className="object-cover scale-105 animate-subtle-zoom"
@@ -80,13 +89,13 @@ export default function LandingPageContent({
                         transition={{ duration: 1, ease: "easeOut" }}
                         className="mb-10"
                     >
-                        <div className="inline-block p-1 rounded-full bg-gradient-to-tr from-accent to-secondary shadow-[0_0_50px_rgba(251,191,36,0.3)]">
+                        <div className="inline-block p-1 rounded-full shadow-[0_0_50px_rgba(251,191,36,0.3)]">
                             <Image
                                 src="/logo.png"
                                 alt="Vijnjodaya Logo"
-                                width={200}
-                                height={200}
-                                className="mx-auto rounded-full bg-white/10 backdrop-blur-xl p-3 border border-white/20"
+                                width={160}
+                                height={160}
+                                className="mx-auto rounded-full bg-white backdrop-blur-xl p-3 border border-white/20"
                             />
                         </div>
                     </motion.div>
@@ -95,7 +104,7 @@ export default function LandingPageContent({
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3, duration: 0.8 }}
-                        className="text-6xl md:text-9xl font-black text-white mb-6 tracking-tight drop-shadow-2xl"
+                        className="text-6xl md:text-8xl font-black text-white mb-6 tracking-tight drop-shadow-2xl"
                     >
                         വിജ്ഞോദയ
                     </motion.h1>
@@ -324,21 +333,21 @@ export default function LandingPageContent({
                     </div>
 
                     <div className="columns-1 sm:columns-2 lg:columns-3 gap-10 space-y-10">
-                        {[1, 2, 3, 4, 5, 6].map((i) => (
+                        {galleryItems.map((item, i) => (
                             <motion.div
                                 key={i}
                                 whileHover={{ scale: 0.96 }}
                                 className="relative break-inside-avoid rounded-[3rem] overflow-hidden shadow-2xl border-4 border-white/10 group cursor-pointer"
                             >
                                 <Image
-                                    src={`https://images.unsplash.com/photo-${1500000000000 + i * 123456}?auto=format&fit=crop&q=80&w=800`}
-                                    alt="Gallery item"
+                                    src={item.imageUrl}
+                                    alt={item.caption || "Gallery item"}
                                     width={600}
                                     height={800}
                                     className="w-full object-cover transition-all duration-700 group-hover:scale-110"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-10">
-                                    <span className="text-white font-black uppercase tracking-widest text-lg">Event #{i}</span>
+                                    <span className="text-white font-black uppercase tracking-widest text-lg">{item.caption || "Memory"}</span>
                                 </div>
                             </motion.div>
                         ))}
