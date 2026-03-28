@@ -31,8 +31,7 @@ export default function AdminLayout({
 
     return (
 
-        <html lang="en">
-            <body>
+
                 <div className="min-h-screen bg-slate-50 flex">
                     {/* Sidebar */}
                     <aside
@@ -82,7 +81,5 @@ export default function AdminLayout({
                         {children}
                     </main>
                 </div>
-            </body>
-        </html>
     );
 }
