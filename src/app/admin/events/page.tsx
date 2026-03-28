@@ -61,9 +61,11 @@ export default async function EventsAdminPage() {
                             </div>
 
                             <div className="flex gap-2">
-                                <button className="p-4 bg-slate-50 text-slate-400 hover:text-primary hover:bg-slate-100 rounded-2xl transition-all">
-                                    <Edit size={20} />
-                                </button>
+                                <Link href={`/admin/events/${event._id.toString()}/edit`}>
+                                    <button className="p-4 bg-slate-50 text-slate-400 hover:text-primary hover:bg-slate-100 rounded-2xl transition-all">
+                                        <Edit size={20} />
+                                    </button>
+                                </Link>
                                 <form action={deleteEvent.bind(null, event._id.toString())}>
                                     <button className="p-4 bg-red-50 text-red-400 hover:bg-red-500 hover:text-white rounded-2xl transition-all">
                                         <Trash2 size={20} />

@@ -27,6 +27,29 @@ export async function createEvent(formData: FormData) {
     }
 }
 
+export async function updateEvent(id: string, formData: FormData) {
+    try {
+        await dbConnect();
+        const rawData = {
+            title: formData.get("title") as string,
+            date: formData.get("date") as string,
+            time: formData.get("time") as string,
+            venue: formData.get("venue") as string,
+            description: formData.get("description") as string,
+            image: formData.get("image") as string,
+            isPast: formData.get("isPast") === "true",
+        };
+        await Event.findByIdAndUpdate(id, rawData);
+        revalidatePath(`/admin/events`);
+        revalidatePath(`/admin/events/${id}/edit`);
+        revalidatePath("/");
+        return { success: true };
+    } catch (error) {
+        console.error("Failed to update event:", error);
+        return { success: false, error: "Failed to update event" };
+    }
+}
+
 export async function deleteEvent(id: string) {
     await dbConnect();
     await Event.findByIdAndDelete(id);
