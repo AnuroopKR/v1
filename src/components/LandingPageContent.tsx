@@ -298,7 +298,7 @@ export default function LandingPageContent({
             </section>
 
             {/* Team Section */}
-            <section id="team" className="py-20 md:py-32 bg-slate-50/50 relative">
+            {/* <section id="team" className="py-20 md:py-32 bg-slate-50/50 relative">
                 <div className="max-w-7xl mx-auto px-6 text-center">
                     <span className="text-secondary font-black tracking-[0.3em] uppercase mb-4 block text-[10px] md:text-sm">The Architects</span>
                     <h2 className="text-4xl sm:text-5xl md:text-7xl font-black text-primary mb-16 md:mb-24 italic uppercase tracking-tighter">Leadership Core</h2>
@@ -322,7 +322,7 @@ export default function LandingPageContent({
                         ))}
                     </div>
                 </div>
-            </section>
+            </section> */}
 
             {/* Gallery Section */}
             <section id="gallery" className="py-20 md:py-32 bg-primary">

@@ -27,7 +27,7 @@ export default function RootLayout({
     { name: "About", href: "#about" },
     { name: "Events", href: "#events" },
     { name: "Achievements", href: "#achievements" },
-    { name: "Team", href: "#team" },
+    // { name: "Team", href: "#team" },
     { name: "Gallery", href: "#gallery" },
   ];
 
